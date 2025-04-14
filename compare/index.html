@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mergely demo</title>
+
+  <style>
+    h1, ul {
+  margin: .3em 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0 .5em;
+}
+
+.diffs {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+.diffs header * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.diffs .compare-wrapper {
+  flex: 1 1 auto;
+  position: relative;
+}
+.diffs .compare-wrapper #compare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Auto-height fix */
+.mergely-column .CodeMirror {
+  height: 100%;
+}
+
+  </style>
+
+  <script src="./jquery.min.js"></script>
+<script src="./codemirror.min.js"></script>
+<script src="./mergely.js"></script>
+<link rel="stylesheet" type="text/css" href="./codemirror.min.css">
+<link rel="stylesheet" type="text/css" href="./mergely.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <button id="prev" title="Previous diff">▲</button>
+      <button id="next" title="Next diff">▼</button>
+      <button id="clearBtn" style="width: 100%; height: 50px;">clear</button>
+    </header>
+    <div class="diffs">
+        <div class="compare-wrapper">
+            <div id="compare">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <script>
+    var comp = $('#compare');
+
+comp.mergely({
+  cmsettings: {
+    readOnly: false,
+    lineWrapping: true
+  },
+  wrap_lines: true,
+
+  editor_width: 'calc(50% - 25px)',
+  editor_height: '100%'
+  
+});
+
+$('#clearBtn').click(function() { 
+  console.log("clear");
+  comp.mergely('clear', 'lhs');
+  comp.mergely('clear', 'rhs');
+});
+
+$('#prev').click(function() { comp.mergely('scrollToDiff', 'prev'); });
+$('#next').click(function() { comp.mergely('scrollToDiff', 'next'); });
+$('#wrap').click(function() { changeOptions(function(x) { x.wrap_lines = !x.wrap_lines; }); });
+
+  </script>
+</body>
+</html>
