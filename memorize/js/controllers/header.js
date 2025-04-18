@@ -3,31 +3,31 @@ app.controller('HeaderController', function($scope, $http0, $rootScope, $modal) 
     $scope.companies = [];
     $scope.ownerId = -1;
 
-    $http0.get('/user/currentUser').then(function(data) {
-        if(data.status) {
-            $rootScope.token = data.data;
-            if(!data.data.user) {// 未绑定用户，弹出绑定页面
-                let modalInstance = $modal.open({
-                    templateUrl: 'tpl/blocks/bindUser.html',
-                    controller: 'bindUserController',
-                    backdrop: 'static',
-                    size: 'sm'
-                });
-                modalInstance.result.then(function () {
-                    $scope.list();
-                });
-            } else {
-                $scope.ownerId = data.data.user.cid ? data.data.user.cid : -1;
-            }
-            $scope.companies = data.data.companies;
+    // $http0.get('/user/currentUser').then(function(data) {
+    //     if(data.status) {
+    //         $rootScope.token = data.data;
+    //         if(!data.data.user) {// 未绑定用户，弹出绑定页面
+    //             let modalInstance = $modal.open({
+    //                 templateUrl: 'tpl/blocks/bindUser.html',
+    //                 controller: 'bindUserController',
+    //                 backdrop: 'static',
+    //                 size: 'sm'
+    //             });
+    //             modalInstance.result.then(function () {
+    //                 $scope.list();
+    //             });
+    //         } else {
+    //             $scope.ownerId = data.data.user.cid ? data.data.user.cid : -1;
+    //         }
+    //         $scope.companies = data.data.companies;
 
-            if($scope.companies) {
-                $scope.cmap = {}
-                for (let c of $scope.companies)
-                    $scope.cmap[c.id] = c.name;
-            }
-        }
-    });
+    //         if($scope.companies) {
+    //             $scope.cmap = {}
+    //             for (let c of $scope.companies)
+    //                 $scope.cmap[c.id] = c.name;
+    //         }
+    //     }
+    // });
 
     $scope.setIdentity = function(id) {
         // console.log(id);

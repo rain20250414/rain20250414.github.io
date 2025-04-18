@@ -541,7 +541,25 @@ angular.module('app')
                       ]
                   }
               })
-              .state('app.system.package', {
+              .state('app.memorize', {
+                url: '/memorize',
+                templateUrl: 'tpl/memorize/list.html',
+                controller: 'memorizeController',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                            return $ocLazyLoad.load(['toaster']).then(
+                                function(){
+                                    return $ocLazyLoad.load([
+                                        'js/controllers/memorize/memorize.js'
+                                    ]);
+                                }
+                            );
+                        }
+                    ]
+                }
+            })
+            .state('app.system.package', {
                   url: '/package',
                   templateUrl: 'tpl/system/package/list.html',
                   controller: 'packageController',
