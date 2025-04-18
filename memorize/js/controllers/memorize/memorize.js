@@ -10,24 +10,51 @@ app.controller('memorizeController', function($scope, $http0, toaster, $modal) {
         $scope.list();
     }
 
+    $scope.search = function() {
+        $scope.list();
+    }
+
     $scope.list = function() {
         $http0.post1("/record/list", $scope.params).then(
             function(data) {
-                $scope.data = data.content;
-                $scope.params['pn'] = data.number;
+                if(data.status) {
+                    $scope.data = data.data;
+                    $scope.params['pn'] = data.data.number + 1;
+                }
+                else {
+                    toaster.pop('error', "error");
+                }
             });
     }
 
     $scope.list();
 
-    function openForm(userId) {
+    function openForm() {
         let modalInstance = $modal.open({
             templateUrl: 'tpl/memorize/form.html',
             controller: 'memorizeAddFormController',
             size: 'lg',
+            backdrop: 'static',
             resolve: {
                 items: function () {
-                    return {userId: userId, cs: $scope.cs};
+                    return {};
+                }
+            }
+        });
+        modalInstance.result.then(function () {
+            $scope.list();
+        });
+    }
+
+    function openTestForm(record) {
+        let modalInstance = $modal.open({
+            templateUrl: 'tpl/memorize/test.html',
+            controller: 'memorizeTestFormController',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                items: function () {
+                    return record;
                 }
             }
         });
@@ -39,16 +66,14 @@ app.controller('memorizeController', function($scope, $http0, toaster, $modal) {
     $scope.add = function() {
         openForm();
     }
+
+    $scope.test = function(record) {
+        openTestForm(record);
+    }
 });
 app.controller('memorizeAddFormController', function($scope, $http0, toaster, items, $modal, $modalInstance) {
     $scope.save = function($event) {
-        // console.log($scope.template);
-        if($scope.myForm.$invalid) {
-            toaster.pop("warning", "please perfect the form");
-            $($event.target).removeClass('active disabled');
-            return;
-        }
-        $http0.post1('/template/point', $scope.template).then(function(data) {
+        $http0.post1('/record/save', $scope.record).then(function(data) {
             if(data.status) {
                 toaster.pop('success', "success");
                 $modalInstance.close();
@@ -58,6 +83,42 @@ app.controller('memorizeAddFormController', function($scope, $http0, toaster, it
                 $($event.target).removeClass('active disabled');
             }
         });
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.close();
+    }
+});
+app.controller('memorizeTestFormController', function($scope, $http0, toaster, items, $modal, $modalInstance) {
+    $scope.showText = items.content;
+    $scope.showForm1 = true;
+    $scope.showForm2 = false;
+
+    $scope.start = function($event) {
+        $scope.showForm1 = false;
+        $scope.showForm2 = true;
+    };
+
+    function submit(success) {
+        $http0.post1('/record/test', {id: items.id, success: success}).then(function(data) {
+            if(data.status) {
+                toaster.pop('success', "success");
+                $modalInstance.close();
+            }
+            else {
+                toaster.pop('error', data.msg);
+                $($event.target).removeClass('active disabled');
+            }
+        });
+    }
+
+    $scope.submit = function($event) {
+        if (Object.is($scope.showText, $scope.inputText)) {
+            submit(true);
+        } else {
+            toaster.pop('error', "failed");
+        }
+        $($event.target).removeClass('active disabled');
     };
 
     $scope.cancel = function() {

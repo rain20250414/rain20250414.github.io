@@ -1,0 +1,19 @@
+<div class="modal-body wrapper-lg">
+    <div class="panel-heading font-bold">Test</div>
+    <div class="panel-body">
+        <form role="form1" ng-show="showForm1">
+            <div class="form-group">
+                <label>Content</label>
+                <textarea ng-model="showText" class="form-control" rows="10" readonly></textarea>
+            </div>
+            <button ng-click="start($event)" one-off class="btn btn-primary btn-lg btn-block ">Start</button>
+        </form>
+        <form role="form2" ng-show="showForm2">
+            <div class="form-group">
+                <label>Content</label>
+                <textarea ng-model="inputText" class="form-control" rows="10"></textarea>
+            </div>
+            <button ng-click="submit($event)" one-off class="btn btn-primary btn-lg btn-block ">Submit</button>
+        </form>
+    </div>
+</div>

@@ -19,6 +19,14 @@ body {
   outline: 0 !important;
 }
 
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 100%;
+}
+
 .h1,
 .h2,
 .h3,

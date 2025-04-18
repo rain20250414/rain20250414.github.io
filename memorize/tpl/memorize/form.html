@@ -4,9 +4,9 @@
         <form role="form">
             <div class="form-group">
                 <label>Content</label>
-                <input type="text" ng-model="user.name" class="form-control">
+                <textarea ng-model="record.content" class="form-control" rows="10"></textarea>
             </div>
-            <button type="button" ng-click="save($event)" one-off class="btn btn-sm btn-primary" translate="common.save">Save</button>
+            <button ng-click="save($event)" one-off class="btn btn-primary btn-lg btn-block ">Save</button>
         </form>
     </div>
 </div>
