@@ -1,0 +1,62 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3" translate="user.title">User</h1>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <h5 translate="common.search">Search</h5>
+    <input type="text" ng-change="list()" ng-model="params.search" placeholder="{{'common.search' | translate}}..." class="form-control rounded">
+  </div>
+  <div class="col-md-3" ruler-check="system_manage">
+    <h5 translate="user.company">Company</h5>
+    <select ng-model="params.cid" ng-change="list()" class="form-control m-b">
+      <option value="-1" translate="common.select">-请选择-</option>
+      <option value="{{c.id}}" ng-repeat="c in cs">{{c.name}}</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <h5>&nbsp;</h5>
+    <button ng-click="reset()" class="btn m-b-xs btn-sm btn-primary" translate="common.reset">Reset</button>
+  </div>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <button ng-click="add()" ruler-check="add_user" class="btn m-b-xs btn-sm btn-success btn-addon" translate="common.add"><i class="fa fa-plus"></i>Add</button>
+
+    <div class="panel panel-default">
+      <div class="panel-heading" translate="user.title">
+        <span class="label bg-danger pull-right m-t-xs">{{data.total_num}}</span>
+        Users
+      </div>
+      <table class="table table-striped m-b-none">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th translate="user.phone">Phone</th>
+          <th translate="user.name">Name</th>
+          <th translate="user.company">Company</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in data.data">
+          <td>
+            {{user.id}}
+          </td>
+          <td>{{user.phone}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.cname}}</td>
+          <td>
+            <span class="pull-right" >
+              <a href ng-click="info(user.id)" ruler-check="view_user"><i class="fa fa-pencil fa-fw m-r-xs"></i></a>
+              <a href ng-click="roles(user.id)" ruler-check="system_manage"><i class="fa icon-graduation fa-fw m-r-xs"></i></a>
+              <a href ng-click="delete(user.id)" ruler-check="del_user"><i class="fa fa-trash-o fa-fw m-r-xs"></i></a>
+            </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <pagination total-items="data.count" ng-model="params.pn" num-pages="numPages" max-size="9" ng-change="list()" class="pagination-sm m-t-none m-b pull-right" rotate="false"></pagination>
+  </div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>

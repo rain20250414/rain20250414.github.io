@@ -1,0 +1,51 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">采集模板管理</h1>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <button ng-click="edit()" translate="common.add" ruler-check="add_device" class="btn m-b-xs btn-sm btn-success btn-addon"><i class="fa fa-plus"></i>Add Device</button>
+    <div class="panel panel-default">
+      <div class="panel-heading" translate="device.title">
+        <span class="label bg-danger pull-right m-t-xs">{{data.total_num}}</span>
+        Devices
+      </div>
+      <table class="table table-striped m-b-none">
+        <thead>
+        <tr>
+          <th translate="device.name">名称</th>
+            <th translate="device.create_time">创建时间</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in data.mine">
+          <td>{{p.name}}</td>
+            <td>{{p.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td>
+              <a href ng-click="edit(p)"><i class="fa fa-pencil fa-fw m-r-xs"></i></a>
+              <a href ng-click="delete(p.id)"><i class="fa fa-trash-o fa-fw m-r-xs"></i></a>
+          </td>
+        </tr>
+        <tr ng-repeat="p in data.system">
+            <td>
+                {{p.name}} &nbsp;&nbsp;<span class="label bg-primary">系统模板</span>
+            </td>
+            <td>{{p.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>
+
+                <span ruler-check="system_manage">
+                    <a href ng-click="edit(p)"><i class="fa fa-pencil fa-fw m-r-xs"></i></a>
+                    <a href ng-click="delete(p.id)"><i class="fa fa-trash-o fa-fw m-r-xs"></i></a>
+                </span>
+            </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <pagination total-items="data.count" ng-model="params.pn" num-pages="numPages" max-size="9" ng-change="list()" class="pagination-sm m-t-none m-b pull-right" rotate="false"></pagination>
+  </div>
+
+  </div>
+
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>

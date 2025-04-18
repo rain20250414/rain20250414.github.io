@@ -1,0 +1,42 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">升级日志</h1>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <button ng-click="add()" ruler-check="add_user" class="btn m-b-xs btn-sm btn-success btn-addon" translate="common.add"><i class="fa fa-plus"></i>Add</button>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        升级日志
+      </div>
+      <table class="table table-striped m-b-none">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>版本</th>
+          <th>时间</th>
+          <th>内容</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="d in data">
+          <td>
+            {{d.id}}
+          </td>
+          <td>{{d.version}}</td>
+          <td>{{d.time|date:'yyyy-MM-dd'}}</td>
+          <td>{{d.content}}</td>
+          <td>
+            <span class="pull-right" >
+              <a href ng-click="delete(d.id)"><i class="fa fa-trash-o fa-fw m-r-xs"></i></a>
+            </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <pagination total-items="total" ng-model="pn" num-pages="numPages" max-size="9" ng-change="list()" class="pagination-sm m-t-none m-b pull-right" rotate="false"></pagination>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>

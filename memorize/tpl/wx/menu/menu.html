@@ -1,0 +1,13 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Menu</h1>
+</div>
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="wxMenuController">
+  <div class="col">
+    <div class="wrapper-md">
+      <button ng-click="save()" class="btn m-b-xs btn-sm btn-info btn-addon"><i class="fa fa-check"></i>Save</button>
+      <button ng-click="delete()" class="btn m-b-xs btn-sm btn-danger btn-addon"><i class="fa fa-trash-o"></i>Delete</button>
+      <textarea class="form-control" ng-model="data" rows="50"></textarea>
+    </div>
+  </div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>

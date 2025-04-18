@@ -1,0 +1,17 @@
+<div class="modal-body wrapper-lg">
+    <a href ng-click="cancel()"><i class="fa fa-times pull-right m-t-sm"></i></a>
+    <button type="button" ng-click="ctl($event, 'restart')" one-off class="btn btn-sm btn-primary" translate="admin.restart">Restart</button>
+    <button type="button" ng-click="ctl($event, 'test')" one-off class="btn btn-sm btn-primary" translate="admin.test">Test</button>
+    <div class="panel panel-default">
+<!--        <div class="panel-heading">-->
+<!--            <span class="label bg-dark">></span> {{'admin.executor'|translate}}-->
+<!--        </div>-->
+<!--        <div id="container" class="panel-body" ui-jq="slimScroll" ui-options="{height:'350px', size:'8px'}" style="background-color: black">-->
+<!--            <div id="his">-->
+<!--            </div>-->
+<!--            <small class="block">{{sn}} ><input type="text" ng-keypress="press($event)" ng-model="command" class="input-sm" size="80" style="background-color: black; border: none"/></small>-->
+<!--        </div>-->
+        <div id="terminal" ng-if="connected"></div>
+        <div ng-if="!connected">连接已关闭</div>
+    </div>
+</div>

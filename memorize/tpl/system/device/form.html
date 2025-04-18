@@ -1,0 +1,13 @@
+<div class="modal-body wrapper-lg">
+    <div class="panel-heading font-bold">{{device.name}}({{device.sn}})</div>
+    <div class="panel-body">
+        <form role="form">
+            <input type="hidden" ng-model="device.id">
+            <div class="form-group">
+                <label>Sim卡</label>
+                <input type="text" ng-model="device.sim" class="form-control" placeholder="Sim卡">
+            </div>
+            <button type="button" translate="common.save" ng-click="save($event)" class="btn btn-sm btn-primary" one-off>Save</button>
+        </form>
+    </div>
+</div>

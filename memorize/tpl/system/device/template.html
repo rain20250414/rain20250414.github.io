@@ -1,0 +1,52 @@
+<div class="col-sm-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="clearfix">
+                <div class="clear">
+                    <a href ng-click="edit()" ruler-check="modify_collect_template"><i class="fa fa-edit pull-right m-t-sm" tooltip-placement="right" tooltip="{{'template.tip.modify'|translate}}"></i></a>
+                    <a href ng-click="upload()" ruler-check="upload_collect_template"><i class="fa icon-cloud-upload pull-right m-t-sm" style="margin-right: 10px;" tooltip-placement="right" tooltip="{{'template.tip.upload'|translate}}"></i></a>
+                    <div class="h4 m-t-xs m-b-xs">
+                        {{'template.host'|translate}}: {{data.host}}
+                    </div>
+                    <div class="h4 m-t-xs m-b-xs">
+                        {{'template.port'|translate}}: {{data.port}}
+                    </div>
+                    <small class="text-muted">{{'template.interval'|translate}}: {{data.interval}}</small>
+                    <small class="text-muted">{{'template.watch_interval'|translate}}: {{data.watch_interval}}</small>
+                    <small class="text-muted">{{'template.heart_interval'|translate}}: {{data.heart_interval}}</small>
+                    <small class="text-muted">{{'template.timeout'|translate}}: {{data.timeout}}</small>
+                </div>
+            </div>
+        </div>
+        <div class="list-group no-radius alt">
+            <accordion close-others="false">
+                <accordion-group ng-repeat="point in data.points">
+                    <accordion-heading>
+                        <span class="label bg-primary">{{point.address}}</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;{{point.name}}
+                        <span class="label label-info">{{point.sn}}</span>
+                    </accordion-heading>
+                    <a href ng-click="chart(point)"><i class="fa fa-bar-chart-o" tooltip-placement="right" tooltip="{{'realdata.tip'|translate}}"></i></a>
+                    <div class="list-group-item" ng-repeat="d in point.data">
+                        <i class="fa fa-bookmark-o"/>&nbsp;&nbsp;{{d.id}} &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-info">{{d.name}}</span>
+                        <span class="badge bg-danger">{{d.option[5]}}</span>
+                        <span class="badge bg-dark">{{d.option[4]}}</span>
+                        <span class="badge bg-warning">{{d.option[3]}}</span>
+                        <span class="badge bg-success">{{d.option[2]}}</span>
+                        <span class="badge bg-info">{{d.option[1]}}</span>
+                        <span class="badge bg-primary">{{d.option[0]}}</span>
+                    </div>
+                    <div class="list-group-item" ng-repeat="d in point.watch">
+                        <i class="fa fa-eye"/>&nbsp;&nbsp;{{d.id}} &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning">{{d.name}}</span>
+                        <span class="badge bg-danger">{{d.option[5]}}</span>
+                        <span class="badge bg-dark">{{d.option[4]}}</span>
+                        <span class="badge bg-warning">{{d.option[3]}}</span>
+                        <span class="badge bg-success">{{d.option[2]}}</span>
+                        <span class="badge bg-info">{{d.option[1]}}</span>
+                        <span class="badge bg-primary">{{d.option[0]}}</span>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+</div>

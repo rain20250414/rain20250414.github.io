@@ -1,0 +1,221 @@
+<div class="modal-body wrapper-lg">
+    <div class="panel-heading font-bold">{{isAdd?'新增采集模板':'修改采集模板'}}</div>
+    <a href ng-click="cancel()"><i class="fa fa-times pull-right m-t-sm"></i></a>
+    <div class="panel-body">
+        <div class="col-sm-12">
+            <form name="myForm" class="form-horizontal">
+                <div class="form-group">
+                    <label>模板名称</label>
+                    <input type="text" ng-model="template.name" class="form-control" placeholder="采集模板名称" required="true" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="请填写采集模板名称"  popover-trigger="focus">
+                </div>
+
+                <div class="form-group has-success">
+                    <div class="col-sm-4">
+                        设备类型
+                        <select ng-model="template.point.type" ng-change="changeType(template.point.type)" class="form-control m-b">
+                            <option ng-value="t" ng-repeat="t in data.types">{{t}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        波特率
+                        <select ng-model="template.point.baud" class="form-control m-b">
+                            <option ng-value="t" ng-repeat="t in data.bauds">{{t}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        校验方式
+                        <select ng-model="template.point.parity" class="form-control m-b">
+                            <option value="{{t.value}}" ng-repeat="t in data.parities">{{t.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading font-bold" translate="template.data">
+                        Data
+                    </div>
+                    <div class="panel-body">
+                        <div ng-repeat="d in template.point.data track by $index">
+                            <div class="form-group has-success">
+                                <div class="col-sm-4">
+                                    {{'template.id'|translate}}<input type="text" required="true" class="form-control input-sm" ng-model="d.id" placeholder="Id" popover="{{'template.tip.id'|translate}}"  popover-trigger="focus">
+                                </div>
+                                <div class="col-sm-4">
+                                    {{'template.name'|translate}}<input type="text" class="form-control input-sm" ng-model="d.name" placeholder="Name" popover="{{'template.tip.name'|translate}}"  popover-trigger="focus">
+                                </div>
+                                <div class="col-sm-3">
+                                    单位符号<input type="text" class="form-control input-sm" ng-model="d.symbol" placeholder="单位符号，如：℃" popover="单位符号，如：℃"  popover-trigger="focus">
+                                </div>
+                                <div class="col-sm-1">
+                                    <button ng-click="delProperty($index)" class="btn m-b-xs btn-sm btn-danger pull-right" style="margin-top: 20px;" tooltip-placement="right" tooltip="{{'template.tip.delete_property'|translate}}"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </div>
+                            <div class="form-group has-success">
+                                <div ng-if="template.point.type == 'modbus'">
+                                    <div class="col-sm-3">
+                                        {{'template.command'|translate}}<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[0]" placeholder="Command" data-min='0' data-max="256" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="{{'template.tip.command'|translate}}"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{'template.register'|translate}}<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[1]" placeholder="Register" data-min='0' data-max="65536" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="{{'template.tip.register'|translate}}"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{'template.length'|translate}}<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[2]" placeholder="Length" data-min='0' data-max="8" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="{{'template.tip.length'|translate}}"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{'template.method'|translate}}<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[3]" placeholder="Method" data-min='0' data-max="3" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="{{'template.tip.method'|translate}}"  popover-trigger="focus">
+                                    </div>
+                                </div>
+                                <div ng-if="template.point.type == '645-97'">
+                                    <div class="col-sm-3">
+                                        DI1-1<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[0]" placeholder="DI1-1" data-min='0' data-max="15" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI1-1"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        DI1-0<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[1]" placeholder="DI1-0" data-min='0' data-max="15" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI1-0"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        DI0-1<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[2]" placeholder="DI0-1" data-min='0' data-max="15" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI0-1"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        DI0-0<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[3]" placeholder="DI0-0" data-min='0' data-max="15" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI0-0"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        数据长度<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[6]" placeholder="DI0-0" data-min='1' data-max="4" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="数据有几个字节"  popover-trigger="focus">
+                                    </div>
+                                </div>
+                                <div ng-if="template.point.type == '645-07'">
+                                    <div class="col-sm-3">
+                                        DI3<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[0]" placeholder="DI3" data-min='0' data-max="255" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI3"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        DI2<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[1]" placeholder="DI2" data-min='0' data-max="255" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI2"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        DI1<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[2]" placeholder="DI1" data-min='0' data-max="255" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI1"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        DI0<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[3]" placeholder="DI0" data-min='0' data-max="255" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI0"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        数据长度<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[6]" placeholder="DI0-0" data-min='1' data-max="4" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="数据有几个字节"  popover-trigger="focus">
+                                    </div>
+                                </div>
+                                <div ng-if="template.point.type == 'vantage'">
+                                    <div class="col-sm-3">
+                                        Offset<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[0]" placeholder="Offset" data-min='0' data-max="255" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="Offset"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        Size<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[1]" placeholder="Size" data-min='0' data-max="255" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="Size"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{'template.method'|translate}}<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[3]" placeholder="Method" data-min='0' data-max="3" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="{{'template.tip.method'|translate}}"  popover-trigger="focus">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    偏移量<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[4]" placeholder="Ratio" data-min='-999999' data-max="999999" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="数据的偏移量，如果设置为100，得到的数据将会加上100"  popover-trigger="focus">
+                                </div>
+                                <div class="col-sm-3">
+                                    {{'template.ratio'|translate}}<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[5]" placeholder="Ratio" data-min='0' data-max="999999" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="{{'template.tip.ratio'|translate}}"  popover-trigger="focus">
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                        </div>
+                    </div>
+                    <button ng-click="addProperty()" class="btn m-b-xs btn-sm btn-primary center-block" translate="template.add_data">Add Data</button>
+                </div>
+                <div class="panel panel-warning">
+                    <div class="panel-heading font-bold" translate="template.watch">
+                        Watch
+                    </div>
+                    <div class="panel-body">
+                        <div ng-repeat="d in template.point.watch track by $index">
+                            <div class="form-group has-success">
+                                <div class="col-sm-6">
+                                    {{'template.id'|translate}}<input type="text" required="true" class="form-control input-sm" ng-model="d.id" placeholder="Id" popover="{{'template.tip.id'|translate}}"  popover-trigger="focus">
+                                </div>
+                                <div class="col-sm-5">
+                                    {{'template.name'|translate}}<input type="text" required="true" class="form-control input-sm" ng-model="d.name" placeholder="Name" popover="{{'template.tip.name'|translate}}"  popover-trigger="focus">
+                                </div>
+                                <div class="col-sm-1">
+                                    <button ng-click="delWatch(point, $index)" class="btn m-b-xs btn-sm btn-danger pull-right" style="margin-top: 20px;" tooltip-placement="right" tooltip="{{'template.tip.delete_property'|translate}}"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </div>
+                            <div class="form-group has-success">
+                                <div ng-if="template.point.type == 'modbus'">
+                                    <div class="col-sm-3">
+                                        {{'template.command'|translate}}<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[0]" placeholder="Command" data-min='0' data-max="256" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="{{'template.tip.command'|translate}}"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{'template.register'|translate}}<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[1]" placeholder="Register" data-min='0' data-max="65536" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="{{'template.tip.register'|translate}}"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{'template.length'|translate}}<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[2]" placeholder="Length" data-min='0' data-max="8" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="{{'template.tip.length'|translate}}"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{'template.method'|translate}}<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[3]" placeholder="Method" data-min='0' data-max="3" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="{{'template.tip.method'|translate}}"  popover-trigger="focus">
+                                    </div>
+                                </div>
+                                <div ng-if="template.point.type == '645-97'">
+                                    <div class="col-sm-3">
+                                        DI1-1<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[0]" placeholder="DI1-1" data-min='0' data-max="15" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI1-1"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        DI1-0<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[1]" placeholder="DI1-0" data-min='0' data-max="15" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI1-0"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        DI0-1<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[2]" placeholder="DI0-1" data-min='0' data-max="15" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI0-1"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        DI0-0<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[3]" placeholder="DI0-0" data-min='0' data-max="15" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI0-0"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        数据长度<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[6]" placeholder="DI0-0" data-min='1' data-max="4" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="数据有几个字节"  popover-trigger="focus">
+                                    </div>
+                                </div>
+                                <div ng-if="template.point.type == '645-07'">
+                                    <div class="col-sm-3">
+                                        DI3<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[0]" placeholder="DI3" data-min='0' data-max="255" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI3"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        DI2<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[1]" placeholder="DI2" data-min='0' data-max="255" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI2"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        DI1<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[2]" placeholder="DI1" data-min='0' data-max="255" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI1"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        DI0<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[3]" placeholder="DI0" data-min='0' data-max="255" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="DI0"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        数据长度<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[6]" placeholder="DI0-0" data-min='1' data-max="4" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="数据有几个字节"  popover-trigger="focus">
+                                    </div>
+                                </div>
+                                <div ng-if="template.point.type == 'vantage'">
+                                    <div class="col-sm-3">
+                                        Offset<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[0]" placeholder="Offset" data-min='0' data-max="255" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="Offset"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        Size<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[1]" placeholder="Size" data-min='0' data-max="255" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="Size"  popover-trigger="focus">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{'template.method'|translate}}<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[3]" placeholder="Method" data-min='0' data-max="3" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="{{'template.tip.method'|translate}}"  popover-trigger="focus">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    偏移量<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[4]" placeholder="Ratio" data-min='-999999' data-max="999999" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="数据的偏移量，如果设置为100，得到的数据将会加上100"  popover-trigger="focus">
+                                </div>
+                                <div class="col-sm-3">
+                                    {{'template.ratio'|translate}}<input ui-jq="TouchSpin" type="text" required="true" class="form-control" ng-model="d.option[5]" placeholder="Ratio" data-min='0' data-max="999999" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up"  data-verticaldownclass="fa fa-caret-down" popover="{{'template.tip.ratio'|translate}}"  popover-trigger="focus">
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                        </div>
+                    </div>
+                    <button ng-click="addWatch(point)" class="btn m-b-xs btn-sm btn-warning center-block" translate="template.add_watch">Add Watch</button>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="row">
+                    <button ng-click="save($event)" translate="common.save" class="btn btn-sm btn-success pull-right" style="margin-right: 30px" one-off>Save</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

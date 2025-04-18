@@ -1,0 +1,1 @@
+const profile = (function($){$.active = 'local';return $;})(window.config||{});

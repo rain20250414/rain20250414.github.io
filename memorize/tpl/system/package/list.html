@@ -1,0 +1,54 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">升级包</h1>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <button ng-click="add()" ruler-check="add_user" class="btn m-b-xs btn-sm btn-success btn-addon" translate="common.add"><i class="fa fa-plus"></i>Add</button>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        升级包
+      </div>
+      <table class="table table-striped m-b-none">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>版本</th>
+          <th>类型</th>
+          <th>Patrol版本</th>
+          <th>Cloud版本</th>
+          <th>硬件版本</th>
+          <th>适用型号</th>
+          <th>适用序列号</th>
+          <th>路径</th>
+          <th>备注</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in data">
+          <td>
+            {{p.id}}
+          </td>
+          <td>{{p.version}}</td>
+          <td>{{p.type}}</td>
+          <td>{{p.usablePatrolVersion}}</td>
+          <td>{{p.usableCloudVersion}}</td>
+          <td>{{p.usableHardVersion}}</td>
+          <td>{{p.usableModel}}</td>
+          <td>{{p.usableSn}}</td>
+          <td>{{p.path}}</td>
+          <td>{{p.note}}</td>
+          <td>
+            <span class="pull-right" >
+              <a href ng-click="info(p.id)"><i class="fa fa-pencil fa-fw m-r-xs"></i></a>
+              <a href ng-click="delete(p.id)"><i class="fa fa-trash-o fa-fw m-r-xs"></i></a>
+            </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>

@@ -1,0 +1,18 @@
+<div class="modal-body wrapper-lg">
+    <div class="panel-heading font-bold">Select a template</div>
+    <div class="panel-body">
+        <div class="row">
+            <form role="form">
+                <select id="model_select" ui-jq="chosen" ng-model="selectedPoint" class="w-md">
+                    <optgroup label="我的模板" ng-if="data.mine">
+                        <option value="{{p.id}}" ng-repeat="p in data.mine">{{p.name}}</option>
+                    </optgroup>
+                    <optgroup label="系统模板" ng-if="data.system">
+                        <option value="{{p.id}}" ng-repeat="p in data.system">{{p.name}}</option>
+                    </optgroup>
+                </select>
+                <button ng-click="ok()" class="btn btn-sm btn-success pull-right">OK</button>
+            </form>
+        </div>
+    </div>
+</div>

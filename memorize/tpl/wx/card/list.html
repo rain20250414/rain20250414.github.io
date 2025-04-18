@@ -1,0 +1,34 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Card</h1>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <button ng-click="save()" class="btn m-b-xs btn-sm btn-success btn-addon"><i class="fa fa-plus"></i>Add</button>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <span class="label bg-danger pull-right m-t-xs">{{data.total_num}}</span>
+        Cards
+      </div>
+      <table class="table table-striped m-b-none">
+        <thead>
+        <tr>
+          <th>Id</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="cardId in data.card_id_list">
+          <td>
+            <span class="pull-right" >
+              <a href ng-click="qrCode(cardId)"><i class="fa fa-qrcode fa-fw m-r-xs"></i></a>
+              <a href ng-click="info(cardId)"><i class="fa fa-pencil fa-fw m-r-xs"></i></a>
+              <a href ng-click="userList(cardId)"><i class="fa fa-list-alt fa-fw m-r-xs"></i></a>
+            </span>
+            {{cardId}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>

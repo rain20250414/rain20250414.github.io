@@ -1,0 +1,76 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3" translate="device.title">Devices</h1>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <h5 translate="common.search">Search</h5>
+    <input type="text" ng-change="list()" ng-model="params.search" placeholder="{{'common.search' | translate}}..." class="form-control rounded">
+  </div>
+  <div class="col-md-3">
+    <h5>&nbsp;</h5>
+    <button ng-click="reset()" class="btn m-b-xs btn-sm btn-primary" translate="common.reset">Reset</button>
+  </div>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading" translate="device.title">
+        <span class="label bg-danger pull-right m-t-xs">{{data.total_num}}</span>
+        Devices
+      </div>
+      <table class="table table-striped m-b-none">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th translate="device.name">名称</th>
+          <th translate="device.sn">序列号</th>
+          <th>操作</th>
+          <th translate="device.model">型号</th>
+          <th translate="device.patrol_version">采集版本</th>
+          <th translate="device.cloud_version">云平台版本</th>
+          <th translate="device.hard_version">硬件版本</th>
+          <th translate="device.status">状态</th>
+          <th>Sim卡</th>
+          <th translate="device.upgrade_time">最后升级时间</th>
+          <th translate="device.last_time">最后操作时间</th>
+          <th translate="device.create_time">创建时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="device in data.data">
+          <td>
+            {{device.id}}
+          </td>
+          <td>{{device.name}}</td>
+          <td>{{device.sn}}</td>
+          <td>
+            <span class="pull-right" >
+              <a href ng-click="info(device.id)" ruler-check="update_device"><i class="fa fa-pencil fa-fw m-r-xs"></i></a>
+              <a href="{{grafanaUrl}}d/-Ii6Ne5Zz/heartbeat?orgId=1&var-device={{device.id}}" target="_blank" ruler-check="view_heart_curve"><i class="fa fa-pencil fa-fw m-r-xs icon-graph"></i></a>
+              <a href ng-click="onlineLog(device.id)" ruler-check="view_heart_curve"><i class="fa fa-unlink"></i></a>
+<!--              <a href ng-click="template(device.id, device.sn)" ruler-check="view_collect_template"><i class="fa fa-list-ol fa-fw m-r-xs"></i></a>-->
+              <a href ng-click="admin(device.sn)" ruler-check="remote_control"><i class="fa icon-game-controller fa-fw m-r-xs"></i></a>
+<!--              <a href ng-click="tag_info(device.id)"><i class="fa fa-trash-o fa-fw m-r-xs icon-tag"></i></a>-->
+<!--              <a href ng-click="delete(device.id)" ruler-check="del_device"><i class="fa fa-trash-o fa-fw m-r-xs"></i></a>-->
+            </span>
+          </td>
+          <td>{{device.model}}</td>
+          <td>{{device.patrolVersion}}</td>
+          <td>{{device.cloudVersion}}</td>
+          <td>{{device.hardVersion}}</td>
+          <td><span ng-class="{'1': 'label bg-success', '0': 'label bg-light'}[device.status] ">{{device.status == 1 ? 'device.online':'device.offline'|translate}}</span></td>
+            <td>{{device.sim}}</td>
+          <td>{{device.upgradeTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td>{{device.lastOpTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td>{{device.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <pagination total-items="data.count" ng-model="params.pn" num-pages="numPages" max-size="9" ng-change="list()" class="pagination-sm m-t-none m-b pull-right" rotate="false"></pagination>
+  </div>
+
+  </div>
+
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>

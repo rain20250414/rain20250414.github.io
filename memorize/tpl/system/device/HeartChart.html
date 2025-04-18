@@ -1,0 +1,45 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3" translate="heart_data.title">心跳信息</h1>
+</div>
+
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div class="panel panel-default">
+    <div  class="panel-body" >
+
+        <!-- <div class="dataTables_length">
+            <!--<button class="btn m-b-xs w-xs btn-primary" ng-click="selectTimeChange('today')">今天</button>
+            <button class="btn m-b-xs w-xs btn-success" ng-click="selectTimeChange('week')">本周</button>
+            <button class="btn m-b-xs w-xs btn-info" ng-click="selectTimeChange('month')">本月</button>
+            <button class="btn m-b-xs w-xs btn-warning" ng-click="selectTimeChange('year')">今年</button>
+            <button class="btn m-b-xs w-xs btn-danger" ng-click="selectTimeChange('all')">全部</button>-->
+
+            <!--<select class="form-control input-sm"  ng-model="timeSelect" id = "timeSelect" ng-change="selectTimeChange()">
+                <option value="today" ng-selected="1">今天</option>
+                <option value="week">本周</option>
+                <option value="month">本月</option>
+                <option value="year" >今年</option>
+                <option value="all">全部</option>
+            </select>
+
+        </div>-->
+        <form class="form-horizontal" >
+            <div class="form-group">
+
+                <div class="col-sm-10" >
+                    <label class="col-sm-2 control-label" translate="heart_data.time">时间</label>
+                    <!-- ng-controller="DatepickerCtrl"-->
+                    <div class="input-group w-md">
+                        <input type="text" class="form-control" ng-change="dateChange()" datepicker-popup="yyyy-MM-dd" ng-model="dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+       </form>
+
+        <div id="main" style="height: 400px; width: 100%; padding: 10px; position: relative;"></div>
+
+
+    </div>
+</div>

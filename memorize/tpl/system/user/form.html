@@ -1,0 +1,24 @@
+<div class="modal-body wrapper-lg">
+    <div class="panel-heading font-bold" translate="user.info">User Info</div>
+    <div class="panel-body">
+        <form role="form">
+            <input type="hidden" ng-model="user.id">
+            <div class="form-group">
+                <label translate="user.name">Name</label>
+                <input type="text" ng-model="user.name" class="form-control" placeholder="{{'user.name'|translate}}">
+            </div>
+            <div class="form-group">
+                <label translate="user.phone">Phone</label>
+                <input type="text" ng-model="user.phone" class="form-control" placeholder="{{'user.phone'|translate}}">
+            </div>
+            <div class="form-group" ng-if="$root.token.admin">
+                <label translate="user.company">Company</label>
+                <select ng-model="user.cid" class="form-control m-b">
+                    <option value="" translate="common.select">-请选择-</option>
+                    <option value="{{c.id}}" ng-repeat="c in cs">{{c.name}}</option>
+                </select>
+            </div>
+            <button type="button" ng-click="save($event)" one-off ruler-check="update_user" class="btn btn-sm btn-primary" translate="common.save">Save</button>
+        </form>
+    </div>
+</div>

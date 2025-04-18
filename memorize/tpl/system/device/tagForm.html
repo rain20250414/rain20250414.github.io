@@ -1,0 +1,30 @@
+<div class="modal-body wrapper-lg">
+    <div class="panel-heading font-bold">Tags</div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-sm-10">
+                <div class="checkbox" ng-repeat="tag in allTags">
+                    <label class="i-checks">
+                        <input type="checkbox" ng-model="tag.selected" ng-change="change(tag)">
+                        <i></i>
+                        {{tag.name}} {{tag.color}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form role="form" ng-show="isShow">
+        <input type="hidden" ng-model="tag.id" >
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" ng-model="tag.name" class="form-control" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label>Color</label>
+            <input type="text" ng-model="tag.color" class="form-control" placeholder="Color">
+        </div>
+
+        <button type="button" ng-click="save()" class="btn btn-sm btn-primary">Save</button>
+    </form>
+    </div>
+</div>

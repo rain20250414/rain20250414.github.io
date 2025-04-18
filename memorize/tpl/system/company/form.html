@@ -1,0 +1,13 @@
+<div class="modal-body wrapper-lg">
+    <div class="panel-heading font-bold" translate="company.info">Company Info</div>
+    <div class="panel-body">
+        <form role="form">
+            <input type="hidden" ng-model="company.id">
+            <div class="form-group">
+                <label translate="company.name">Name</label>
+                <input type="text" ng-model="company.name" class="form-control" placeholder="{{'company.name'|translate}}">
+            </div>
+            <button type="button" translate="common.save" ng-click="save($event)" ruler-check="update_company" one-off class="btn btn-sm btn-primary">Save</button>
+        </form>
+    </div>
+</div>
