@@ -17,7 +17,7 @@
   <div class="row">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <span class="label bg-danger pull-right m-t-xs">{{data.totalElements}}</span>
+        <span class="label bg-primary pull-right m-t-xs">{{data.totalElements}}</span>
         Records
       </div>
       <table class="table table-striped m-b-none">
@@ -38,7 +38,7 @@
             <td>{{p.successCount}}</td>
             <td>{{p.errorCount}}</td>
             <td>{{p.successive}}</td>
-            <td>{{p.nextTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td ng-class="{'text-danger': isPastDate(p.nextTime)}">{{p.nextTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
             <td>{{p.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
             <td>
                 <a href ng-click="edit(p)"><i class="fa fa-pencil fa-fw m-r-xs"></i></a>

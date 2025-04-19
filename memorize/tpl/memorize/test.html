@@ -17,5 +17,10 @@
             <button ng-click="submit($event)" one-off class="btn btn-primary btn-lg btn-block ">Submit</button>
             <button ng-click="cancel($event)" one-off class="btn btn-lg btn-block ">Cancel</button>
         </form>
+        <div ng-show="showCompare">
+            <div id="compare"></div>
+            <button ng-click="pass($event)" one-off class="btn btn-success btn-lg btn-block ">Pass</button>
+            <button ng-click="reject($event)" one-off class="btn btn-danger btn-lg btn-block ">Reject</button>
+        </div>
     </div>
 </div>
