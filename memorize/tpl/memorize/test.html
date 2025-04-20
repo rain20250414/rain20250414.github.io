@@ -6,8 +6,8 @@
                 <label>Content</label>
                 <textarea ng-model="showText" class="form-control" rows="10" readonly></textarea>
             </div>
-            <button ng-click="start($event)" one-off class="btn btn-primary btn-lg btn-block ">Start</button>
-            <button ng-click="cancel($event)" one-off class="btn btn-lg btn-block ">Cancel</button>
+            <button ng-click="start($event)" class="btn btn-primary btn-lg btn-block ">Start</button>
+            <button ng-click="cancel($event)" class="btn btn-lg btn-block ">Cancel</button>
         </form>
         <form role="form2" ng-show="showForm2">
             <div class="form-group">
@@ -15,7 +15,8 @@
                 <textarea ng-model="inputText" class="form-control" rows="10"></textarea>
             </div>
             <button ng-click="submit($event)" one-off class="btn btn-primary btn-lg btn-block ">Submit</button>
-            <button ng-click="cancel($event)" one-off class="btn btn-lg btn-block ">Cancel</button>
+            <button ng-click="back($event)" class="btn btn-lg btn-block ">Back</button>
+            <button ng-click="cancel($event)" class="btn btn-lg btn-block ">Cancel</button>
         </form>
         <div ng-show="showCompare">
             <div id="compare"></div>

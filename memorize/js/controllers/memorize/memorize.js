@@ -157,8 +157,14 @@ app.controller('memorizeTestFormController', function($scope, $http0, toaster, i
 
     $scope.reject = function($event) {
         upload($event, false);
+        $scope.inputText = '';
         $scope.showForm2 = true;
         $scope.showCompare = false;
+    }
+
+    $scope.back = function($event) {
+        $scope.showForm1 = true;
+        $scope.showForm2 = false;
     }
 
     $scope.cancel = function() {
