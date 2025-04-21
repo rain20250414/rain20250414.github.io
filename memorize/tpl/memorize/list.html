@@ -34,7 +34,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="p in data.content">
-            <td>{{p.content}}</td>
+            <td ng-click="test(p)">{{p.content}}</td>
             <td>{{p.successCount}}</td>
             <td>{{p.successive}}</td>
             <td>{{p.errorCount}}</td>
