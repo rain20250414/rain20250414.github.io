@@ -1,6 +1,6 @@
-let host_local = "http://localhost:8080/";
-let host_prod = "http://localhost:8080/";
-let host_dev = "http://localhost:8080/";
+let host_local = "http://168.138.47.33:8080/";
+let host_prod = "http://168.138.47.33:8080/";
+let host_dev = "http://168.138.47.33:8080/";
 
 let g_dev = "https://g.dev.grapefruitpi.com/";
 let g_prod = "https://g.grapefruitpi.com/";
