@@ -1,5 +1,6 @@
 app.controller('memorizeController', function($scope, $http0, toaster, $modal) {
     $scope.data = [];
+    $scope.todoCount = 0;
     $scope.params = {
         pn: 1,
 
@@ -22,6 +23,15 @@ app.controller('memorizeController', function($scope, $http0, toaster, $modal) {
                     $scope.data = data.data;
                     $scope.params['pn'] = data.data.number + 1;
                     $scope.now = new Date();
+                }
+                else {
+                    toaster.pop('error', "error");
+                }
+            });
+        $http0.post1("/record/todoCount", $scope.params).then(
+            function(data) {
+                if(data.status) {
+                    $scope.todoCount = data.data;
                 }
                 else {
                     toaster.pop('error', "error");
