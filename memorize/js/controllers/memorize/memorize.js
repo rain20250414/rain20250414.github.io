@@ -3,17 +3,28 @@ app.controller('memorizeController', function($scope, $http0, toaster, $modal) {
     $scope.todoCount = 0;
     $scope.params = {
         pn: 1,
-
+        condition: {
+            content: '',
+            category: 'english'
+        }
     };
     $scope.now = new Date();
 
     $scope.reset = function() {
-        $scope.params['search'] = '';
+        $scope.params.condition.content = '';
         $scope.list();
     }
 
     $scope.search = function() {
         $scope.list();
+    }
+
+    $scope.select = function(category) {
+        if ($scope.params.condition.category != category) {
+            $scope.params.condition.category = category;
+            $scope.params.pn = 1;
+            $scope.list();
+        }
     }
 
     $scope.list = function() {
@@ -49,7 +60,7 @@ app.controller('memorizeController', function($scope, $http0, toaster, $modal) {
             backdrop: 'static',
             resolve: {
                 items: function () {
-                    return {};
+                    return {category: $scope.params.condition.category};
                 }
             }
         });
@@ -88,6 +99,10 @@ app.controller('memorizeController', function($scope, $http0, toaster, $modal) {
     };
 });
 app.controller('memorizeAddFormController', function($scope, $http0, toaster, items, $modal, $modalInstance) {
+    $scope.record = {
+        category: items.category
+    };
+
     $scope.save = function($event) {
         $http0.post1('/record/save', $scope.record).then(function(data) {
             if(data.status) {
@@ -100,6 +115,10 @@ app.controller('memorizeAddFormController', function($scope, $http0, toaster, it
             }
         });
     };
+
+    $scope.select = function(category) {
+        $scope.record.category = category;
+    }
 
     $scope.cancel = function() {
         $modalInstance.close();
